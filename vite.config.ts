@@ -7,12 +7,15 @@ export default defineConfig({
   server: {
     allowedHosts: true,
   },
+  define: {
+    global: "globalThis",
+  },
   optimizeDeps: {
-    esbuildOptions: {
-      // Node.js global to browser globalThis
-      define: {
-        global: "globalThis",
-      },
+    include: ["buffer"],
+  },
+  resolve: {
+    alias: {
+      buffer: "buffer",
     },
   },
 });

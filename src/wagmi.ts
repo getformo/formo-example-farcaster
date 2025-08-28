@@ -1,10 +1,18 @@
-import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
+import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
 import { http, createConfig } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
+import { injected } from "wagmi/connectors";
+
+// Create connectors array with fallback for development
+const connectors = [
+  farcasterMiniApp(),
+  // Fallback connector for development/testing outside Farcaster
+  injected()
+];
 
 export const config = createConfig({
   chains: [base, mainnet],
-  connectors: [farcasterFrame()],
+  connectors,
   transports: {
     [base.id]: http(),
     [mainnet.id]: http(),
